@@ -73,6 +73,27 @@ using WebAssembly.Shared;
 #line hidden
 #nullable disable
 #nullable restore
+#line 11 "D:\files\Github\Compilateur\Compilateur\Compilateur\WebAssembly\WebAssembly\_Imports.razor"
+using Syncfusion.Blazor.Schedule;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 12 "D:\files\Github\Compilateur\Compilateur\Compilateur\WebAssembly\WebAssembly\_Imports.razor"
+using Syncfusion.Blazor.Grids;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
+#line 13 "D:\files\Github\Compilateur\Compilateur\Compilateur\WebAssembly\WebAssembly\_Imports.razor"
+using Blazored.LocalStorage;
+
+#line default
+#line hidden
+#nullable disable
+#nullable restore
 #line 1 "D:\files\Github\Compilateur\Compilateur\Compilateur\WebAssembly\WebAssembly\Shared\LoginDisplay.razor"
 using Microsoft.AspNetCore.Components.Authorization;
 

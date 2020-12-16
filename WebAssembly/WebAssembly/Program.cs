@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Syncfusion.Blazor;
+using Blazored.LocalStorage;
 
 namespace WebAssembly
 {
@@ -24,6 +26,12 @@ namespace WebAssembly
                 builder.Configuration.Bind("octa", options.ProviderOptions);
                 options.ProviderOptions.ResponseType = "code";
             });
+
+            builder.Services.AddSyncfusionBlazor();
+
+            builder.Services.AddBlazoredLocalStorage();
+            builder.Services.AddBlazoredLocalStorage(config =>
+                config.JsonSerializerOptions.WriteIndented = true);
 
             await builder.Build().RunAsync();
         }

@@ -1,4 +1,5 @@
 ﻿<StaticWebAssets Version="1.0">
   <ContentRoot BasePath="/" Path="D:\files\Github\Compilateur\Compilateur\Compilateur\WebAssembly\WebAssembly\bin\Debug\netstandard2.1\wwwroot\" />
   <ContentRoot BasePath="_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication" Path="C:\Users\PC\.nuget\packages\microsoft.aspnetcore.components.webassembly.authentication\3.2.1\build\..\staticwebassets\" />
+  <ContentRoot BasePath="_content/Syncfusion.Blazor" Path="C:\Users\PC\.nuget\packages\syncfusion.blazor\18.3.0.53\build\..\staticwebassets\" />
 </StaticWebAssets>
