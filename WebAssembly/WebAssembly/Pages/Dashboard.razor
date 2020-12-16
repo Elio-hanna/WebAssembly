@@ -1,0 +1,123 @@
+﻿@page "/dashboard"
+@using Syncfusion.Blazor.Schedule;
+@using System;
+@using System.Collections.Generic;
+@using System.Text.Json;
+@using System.Threading.Tasks;
+@using System.IO;
+@using System.Text;
+@using System.Web;
+@using Newtonsoft.Json;
+@using Newtonsoft.Json.Converters;
+
+@attribute [Microsoft.AspNetCore.Authorization.Authorize]
+
+@inject HttpClient Http
+@inject ILocalStorageService localStorage
+
+<link href="https://cdn.syncfusion.com/blazor/18.3.47/styles/bootstrap4.css" rel="stylesheet" />
+
+
+<h1 id="dbh">Dashboard</h1>
+
+<!---<button type="button" class="btn btn-dark" @onclick="saveFile">Save</button>-->
+
+<SfSchedule TValue="todoData"
+            StartHour="07:00"
+            EndHour="23:59"
+            @ref="@ScheduleRef"
+            @bind-SelectedDate="@localDate">
+
+    <ScheduleEvents TValue="todoData" DataBound="OnDataBound"></ScheduleEvents>
+    <ScheduleEventSettings DataSource="@DataSource"></ScheduleEventSettings>
+
+</SfSchedule>
+
+
+@code {
+    DateTime localDate = DateTime.Now;
+    todoData[] todos;
+    string email = "markraheb97@gmail.com";
+
+    SfSchedule<todoData> ScheduleRef;
+    SfSchedule<todoData> ScheduleObj;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var data = await localStorage.GetItemAsync<string>("todos");
+        todos = System.Text.Json.JsonSerializer.Deserialize<todoData[]>(data);
+        if (todos == null)
+        {
+
+        }
+        if (todos != null)
+        {
+            populateScheduler();
+        }
+    }
+
+    public void populateScheduler()
+    {
+        foreach (var t in todos)
+        {
+            DataSource.Add(new todoData
+            {
+                Id = t.Id,
+                Subject = t.Subject,
+                Description = t.Description,
+                StartTime = t.StartTime,
+                EndTime = t.EndTime,
+            });
+        }
+    }
+
+    public async Task saveFile()
+    {
+        List<todoData> todos = await ScheduleRef.GetEvents();
+        List<todoData> t = new List<todoData> {
+            new todoData
+            {
+                Id = 1,
+                Subject = "ezpz",
+                Description = ":)",
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now,
+            }
+        };
+
+        var jsonData = System.Text.Json.JsonSerializer.Serialize(t);
+        await localStorage.SetItemAsync("todos", jsonData);
+    }
+
+    public async Task OnDataBound()
+    {
+        List<todoData> todos = await ScheduleRef.GetEvents();
+        var jsonData = System.Text.Json.JsonSerializer.Serialize(todos);
+        await localStorage.SetItemAsync("todos", jsonData);
+    }
+
+    List<todoData> DataSource = new List<todoData> { };
+
+    public class todoData
+    {
+        public int Id { get; set; }
+        public string Subject { get; set; }
+        public string Location { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
+        public string Description { get; set; }
+        public bool IsAllDay { get; set; }
+        public string RecurrenceRule { get; set; }
+        public string RecurrenceException { get; set; }
+        public Nullable<int> RecurrenceID { get; set; }
+    }
+
+    public class jsonData
+    {
+        public int Id { get; set; }
+        public string Subject { get; set; }
+        public string Description { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
+    }
+}
